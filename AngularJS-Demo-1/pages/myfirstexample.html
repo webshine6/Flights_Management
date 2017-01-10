@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>AngularJS - Example 1</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js">
+
+    </script>
+
 </head>
 <body>
 
 <!-- ng-app directive starts an angularjs application - define root element
 bootstraps application and load modules -->
-<div ng-app="" ng-init="countries = [{locale: 'en', name: 'English'},{locale: 'bg', name:'Bulgaria'}]">
+<div ng-app="mainApp" ng-controller="studentController"
+     ng-init="cost=145; quantity=7; countries = [{locale: 'en', name: 'English'},{locale: 'bg', name:'Bulgaria'}]">
     <!-- ng-model create model variable named "name"-->
     <p>Enter your name: <input type="text" ng-model="name"/></p>
 
@@ -23,10 +28,29 @@ bootstraps application and load modules -->
         </li>
     </ol>
 
+    <p>Cost: {{cost * quantity}}</p>
+
+    <p>You are entering: {{student.fullName()}}</p>
+
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js">
+<script>
 
+    // declare a module
+   var mainApp = angular.module("mainApp",[]);
+
+   mainApp.controller('studentController', function($scope) {
+       $scope.student = {
+           firstName: "Mahesh",
+           lastName: "Parashar",
+
+           fullName: function() {
+               var studentObject;
+               studentObject = $scope.student;
+               return studentObject.firstName + " " + studentObject.lastName;
+           }
+       };
+   });
 </script>
 
 </body>

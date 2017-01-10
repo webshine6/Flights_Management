@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My First Controller</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-app="myApp" ng-controller="studentController">
+    <p>Enter firstName: <input type="text" ng-model="student.firstName" /></p>
+    <p>Enter lastName: <input type="text" ng-model="student.lastName" /></p>
+
+    <p>Full name: {{ student.fullName() }}</p>
+</div>
+
+<script>
+
+    // declare a module
+    var myApp = angular.module("myApp",[]);
+
+    // creating a studentController, which attaches
+    // a student object
+    myApp.controller("studentController", function ($scope) {
+        $scope.student = {
+            firstName: "Monik",
+            lastName: "MonikAng",
+
+            fullName: function () {
+                var studentObject;
+                studentObject = $scope.student;
+
+                return studentObject.firstName + " " +studentObject.lastName;
+            }
+        }
+    })
+
+
+</script>
+
+
+</body>
+</html>

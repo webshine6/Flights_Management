@@ -15,11 +15,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="myfirstexample.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pages/myfirstexample.html">
+      <file leaf-file-name="myfirstcontroller.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pages/myfirstcontroller.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state relative-caret-position="420">
+              <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -38,6 +38,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/pages/myfirstexample.html" />
+        <option value="$PROJECT_DIR$/pages/myfirstcontroller.html" />
       </list>
     </option>
   </component>
@@ -175,12 +176,12 @@
       <option name="presentableId" value="Default" />
       <updated>1484050807098</updated>
       <workItem from="1484050808473" duration="833000" />
-      <workItem from="1484052002095" duration="1633000" />
+      <workItem from="1484052002095" duration="5424000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2466000" />
+    <option name="totallyTimeSpent" value="6257000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
@@ -218,8 +219,16 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/pages/myfirstexample.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+        <state relative-caret-position="110">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/myfirstcontroller.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="24" column="9" lean-forward="true" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
           <folding />
         </state>
       </provider>
