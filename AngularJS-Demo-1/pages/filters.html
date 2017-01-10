@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS Filters</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+</head>
+<body>
+
+    <div ng-app="myApp" ng-controller="studentController">
+        <table>
+            <tr>
+                <td>Enter firstName:</td>
+                <td><input type="text" ng-model="student.firstName"></td>
+            </tr>
+
+            <tr>
+                <td>Enter lastName:</td>
+                <td><input type="text" ng-model="student.lastName"></td>
+            </tr>
+
+            <tr>
+                <td>Enter salary:</td>
+                <td><input type="text" ng-model="student.salary"></td>
+            </tr>
+
+            <tr>
+                <td>Enter subject:</td>
+                <td><input type="text" ng-model="friendName"></td>
+            </tr>
+        </table>
+
+        <!-- Table prints result -->
+        <table>
+            <tr>
+                <td>FullName in UPPERCASE: </td>
+                <td>{{student.fullName() | uppercase}}</td>
+            </tr>
+
+            <tr>
+                <td>FullName in lowercase: </td>
+                <td>{{student.fullName() | lowercase}}</td>
+            </tr>
+
+            <tr>
+                <td>Salary: </td>
+                <td>{{student.salary | currency}}</td>
+            </tr>
+
+            <tr>
+                <td>Friends: </td>
+
+                <td>
+                    <ul>
+                        <li ng-repeat="friend in student.friends | filter: friendName | orderBy: 'name' ">
+                            {{
+                            friend.name + ', phoneNumber: ' + friend.phone
+                            }}
+                        </li>
+
+                    </ul>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+
+
+
+
+    </div>
+
+
+    <script>
+
+        var myApp = angular.module("myApp", []);
+
+        myApp.controller("studentController", function ($scope)
+        {
+            $scope.student = {
+
+                firstName: "Mariq",
+                lastName: "Ivanova",
+                salary: 2600,
+                friends: [
+                    {
+                      name: "Aleks",
+                      phone: "0889-256-625"
+                    },
+                    {
+                        name: "Rosen",
+                        marks: "0883-055-555"
+                    },
+                    {
+                        name: "Kalina",
+                        marks: "0877-522-405"
+                    }
+                ],
+
+                fullName: function () {
+                    var studentObject;
+                    studentObject = $scope.student;
+
+                    return studentObject.firstName + " " + studentObject.lastName;
+                }
+
+
+            }
+        })
+
+    </script>
+
+
+</body>
+</html>
