@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Include Modules</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script src="modules/mainApp.js"></script>
+    <script src="modules/studentController.js"></script>
+</head>
+<body>
+    <div ng-app="mainApp" ng-controller="studentController">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>PhoneNumber</th>
+            </tr>
+
+            <tr ng-repeat = "friend in student.friends">
+                <td>{{ friend.name }}</td>
+                <td>{{ friend.phone }}</td>
+            </tr>
+
+        </table>
+    </div>
+</body>
+</html>
