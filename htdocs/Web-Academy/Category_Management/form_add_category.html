@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Add Category</title>
+    </head>
+
+    <style>
+        .error {
+            color: #F00;
+        }
+    </style>
+</html>
+
+
+<!-- Форма за добавяне на категория -->
+<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" >
+    Name: <input type="text" name="name">
+    <?php
+        if(isset($errors))
+        {
+            foreach($errors as $error)
+            {
+               echo "<p class='error'> $error </p>";
+            }
+
+        }
+
+    ?>
+    <br />
+    Parent Category:
+    <select name="parent_id">
+        <?php
+        foreach ($categories as $category)
+        {
+            echo "<option value='$category->category_id'> $category->name </option>";
+        }
+        ?>
+    </select> <br />
+
+    <input type="submit" value="Create category" name="create">
+</form>
+
+

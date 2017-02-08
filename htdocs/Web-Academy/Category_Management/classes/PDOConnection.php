@@ -50,11 +50,22 @@ final class PDOConnection
      */
     public function getConnection()
     {
+        $db_config = parse_ini_file('C:\xampp\htdocs\Web-Academy\Category_Management\config\config.ini', true);
+
+//        $iniFile = './config/config.ini';
+//        try {
+//            $db_config = parse_ini_file($iniFile, true);
+//        }
+//        catch (Exception $e) {
+//            die('Missing INI file: ' . $iniFile);
+//        }
+
         // Get the path to config.ini
-        $ini_path = './config/config.ini';
+       // $ini_path = './config/config.ini';
 
         // read the .ini file and create an associative array
-        $db_config = parse_ini_file($ini_path, true);
+       // $db_config = parse_ini_file($ini_path, true);
+
 
         // use the info in .ini file to create string connection
         $host      = $db_config['host'];

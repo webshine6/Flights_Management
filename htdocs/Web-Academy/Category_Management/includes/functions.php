@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once __DIR__.'/../classes/PDOConnection.php';
 
 function pre_print($var) {
@@ -88,6 +90,7 @@ function get_subcategories_level_1($node)
 function add_category($name, $parent_id)
 {
     try {
+
         // Получаваме връзката към БД
         $conn = PDOConnection::getInstance()->getConnection();
 
@@ -121,7 +124,7 @@ function get_categories()
         $statement->execute();
         $result = $statement->fetchAll();
     }catch (PDOException $e) {
-        echo 'Adding category ERROR: '.$e->getMessage();
+        echo 'Selecting category ERROR: '.$e->getMessage();
         die();
     }finally {
         $statement = null;
@@ -287,45 +290,3 @@ if (isset($_GET['delete']))
 }
 
 
-// Обработка на заявка за добавяне на категория
-if (isset($_POST['create']) && !empty($_POST))
-{
-    // TODO Validation !!!
-    $name = validate_input($_POST['name']);
-    $value = validate_input($_POST['parent_id']);
-
-    add_category($name, $value);
-}
-
-/**
- * Name = required + must only contains letters and whitespace
- *
- * @param $data - Input Data
- */
-
-function validate_input($data)
-{
-
-    $errors = array();
-
-    if (empty($data))
-    {
-        $errors[] = 'Name is Required field';
-    }
-
-
-    if (ctype_alpha(str_replace(array('\n','','\t'),'',$data)))
-    {
-        $errors[] = 'Name must only contains letters and spaces.';
-    }
-
-
-
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-
-    $result = (!empty($errors)) ? $errors : $data;
-
-    return $result;
-}
