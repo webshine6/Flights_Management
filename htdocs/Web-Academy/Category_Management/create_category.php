@@ -1,15 +1,14 @@
 <?php
 
 require_once('./includes/functions.php');
-
-$categories = get_categories();
-
+require_once __DIR__.'./includes/validation.php';
 
 // Обработка на заявка за добавяне на категория
+
 if (isset($_POST['create']) && !empty($_POST))
 {
-
-   // pre_print($categories);
+    // pre_print($categories);
+    // pre_print($_POST);
 
     $errors = array();
 
@@ -23,7 +22,7 @@ if (isset($_POST['create']) && !empty($_POST))
     }
 
     // It checks if all of the characters in the provided string are alphabetic.
-    if (ctype_alpha($name) === FALSE)
+    if (ctype_alpha(str_replace(array("\n", "\t", ' '), '', $name)) === FALSE)
     {
         $errors[] = '* Name must only contains letters and spaces.';
     }
@@ -35,11 +34,7 @@ if (isset($_POST['create']) && !empty($_POST))
     }
 
     // array with category_id => name
-    $cats_id_name = array();
-    foreach ($categories as $category)
-    {
-       $cats_id_name[$category->category_id] = $category->name;
-    }
+    $cats_id_name = cats_id_name();
 
     //pre_print($cats_id_name);
 
@@ -55,36 +50,16 @@ if (isset($_POST['create']) && !empty($_POST))
         $errors[] = '* Category already exists.';
     }
 
-   // pre_print($_POST);
-
     // check if no errors
     if (count($errors) == 0)
     {
-       add_category(mb_strtoupper($name), $parent_id);
-       header("Refresh: 0;");
+        add_category(mb_strtoupper($name), $parent_id);
+        header("Refresh: 0;");
     }
 
 }
 
 
-/**
- * Validate user input
- *
- * @param $data
- * @return string
- */
-function validate_input($data)
-{
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    $data = htmlentities($data);
 
-    return $data;
-}
-
-
-// Show add category form
-require_once ('./form_add_category.html');
 
 ?>

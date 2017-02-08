@@ -1,41 +1,20 @@
-<html>
-    <head>
-        <title>Add Category</title>
-    </head>
-
-    <style>
-        .error {
-            color: #F00;
-        }
-    </style>
-</html>
-
 
 <!-- Форма за добавяне на категория -->
-<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" >
-    Name: <input type="text" name="name">
-    <?php
-        if(isset($errors))
-        {
-            foreach($errors as $error)
-            {
-               echo "<p class='error'> $error </p>";
-            }
+<form method="post" action="
+<?php
 
-        }
+$node=$_GET['node'];
 
-    ?>
-    <br />
-    Parent Category:
-    <select name="parent_id">
-        <?php
-        foreach ($categories as $category)
-        {
-            echo "<option value='$category->category_id'> $category->name </option>";
-        }
-        ?>
-    </select> <br />
+$url =  htmlspecialchars($_SERVER['PHP_SELF']).'?create&node='.$node;
+echo $url;
 
+?>" >
+
+    <label for="name">
+        Name:
+        <input type="text" name="name" id="name" autofocus required/>
+    </label>
+    <input type="hidden" value="<?php echo $_GET['node'];?>" name="parent_id"/>
     <input type="submit" value="Create category" name="create">
 </form>
 

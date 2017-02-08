@@ -1,8 +1,7 @@
 <?php
 
-session_start();
-
 require_once __DIR__.'/../classes/PDOConnection.php';
+require_once __DIR__.'./validation.php';
 
 function pre_print($var) {
     echo '<pre>';
@@ -11,18 +10,18 @@ function pre_print($var) {
 }
 
 // Принтиране на елементите в навигацията
-function print_elements($categories)
+function print_elements($categories, $node)
 {
     foreach ($categories as $category)
     {
         if (is_array($category))
         {
-            print_elements($category);
+            print_elements($category, $node);
         }else {
             echo "[$category->name] > ";
         }
     }
-
+    echo "<a href='?delete&node=$node'>[Delete]</a>";
     echo "<br/>";
 }
 
@@ -56,6 +55,7 @@ function get_parent_directory($node)
 // вземаме само едно ниво поддиректории надолу
 function get_subcategories_level_1($node)
 {
+    $array = array();
     try {
         // Получаваме връзката към БД
         $conn = PDOConnection::getInstance()->getConnection();
@@ -282,11 +282,16 @@ function delete_children_directories($node)
     }
 }
 
-// Обработка на заявка за изтриване на категория
-if (isset($_GET['delete']))
+function cats_id_name()
 {
-    $node = $_GET['node'];
-    // delete_children_directories($conn, $node);
-}
+    $categories = get_categories();
 
+    $cats_id_name = array();
+    foreach ($categories as $category)
+    {
+        $cats_id_name[$category->category_id] = $category->name;
+    }
+
+    return $cats_id_name;
+}
 
