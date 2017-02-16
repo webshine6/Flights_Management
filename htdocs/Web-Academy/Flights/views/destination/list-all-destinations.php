@@ -49,21 +49,15 @@ $path = $_SERVER['SCRIPT_NAME'];
             }
         }
 
+        if(isset($success))
+        {
+            echo "<p  class='alert alert-success'> $success </p>";
+        }
 
         ?>
 
         </tbody>
     </table>
-
-<?php
-
-
-if(isset($success))
-{
-    echo "<p  class='alert alert-success'> $success </p>";
-}
-
-?>
 
     <a href="<?php echo $_SERVER['SCRIPT_NAME'].'/destinations/add-destination' ?>"
         class="btn btn-primary">

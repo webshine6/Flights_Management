@@ -15,10 +15,8 @@ class DestinationController
         $this->viewHelper = new ViewHelper();
     }
 
-
     public function call()
     {
-
         if (isset($_SERVER['PATH_INFO']))
         {
             $pathInfo = explode('/',$_SERVER['PATH_INFO']);
@@ -95,6 +93,7 @@ class DestinationController
 
     function delete_destination($id)
     {
+        // check for existing destination
         $db = Db::getInstance();
         $req = $db->prepare('SELECT id_destination 
                              FROM destinations
@@ -105,23 +104,42 @@ class DestinationController
 
         $row_count = $req->rowCount();
 
-
         $errors = array();
         if ($row_count == 0)
         {
             $errors[] = '* Destination not exists';
-        }else {
+        }
+
+        // check for existing flight for deleting destination
+        //---------------------------------------------------
+        $db = Db::getInstance();
+        $req = $db->prepare('
+                    SELECT f.id_destination
+                    FROM destinations dest, flights f
+                    WHERE dest.id_destination = f.id_destination
+                    AND dest.id_destination =  :id');
+
+        $req->bindParam(':id',$id);
+        $req->execute();
+
+        $row_count = $req->rowCount();
+
+        $errors = array();
+        if ($row_count > 0) {
+            $errors[] = '* Deleting Filed. There is a flight to this destination';
+        }
+
+        // ---------------------------------------------------
+
+        if (empty($errors))
+        {
             $this->model->delete_destination($id);
             $this->viewHelper->assign('success','Destination deleted successful' );
         }
 
 
-        $destinations = $this->model->list_all();
-
         $this->viewHelper->assign('errors',$errors);
-        $this->viewHelper->assign('destinations', $destinations);
-
-        $this->viewHelper->display('destination','list-all-destinations');
+        $this->list_all_destinations();
 
     }
 
@@ -138,6 +156,7 @@ class DestinationController
         $errors = array();
         $output   = array();
 
+        // check for required fields
         foreach ($data as $key=>$value)
         {
             if (empty($value) && array_key_exists($key, $rules))
@@ -147,11 +166,11 @@ class DestinationController
 
         }
 
+        // check for numeric value
         if (isset($data['price']))
         {
             if (!is_numeric((float)$data['price']))
             {
-                // Decimal doesn't work :)
                 $errors[] = '* Price must be numeric';
             }
 
@@ -186,7 +205,6 @@ class DestinationController
         $req->execute();
 
         $row_count = $req->rowCount();
-
         if ($row_count == 0)
         {
             $errors[] = '* Airport To not exists';
@@ -203,7 +221,6 @@ class DestinationController
         $req->execute();
 
         $row_count = $req->rowCount();
-
         if ($row_count > 0)
         {
             $errors[] = '* Airport already exists';

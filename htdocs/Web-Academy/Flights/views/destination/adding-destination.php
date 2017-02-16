@@ -54,7 +54,7 @@
 
         ?>
 
-        <a href="./list-all">All Destination</a>
+        <a href="./list-all">All Destinations</a>
     </div>
 </div>
 

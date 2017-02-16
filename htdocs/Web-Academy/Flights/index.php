@@ -1,26 +1,49 @@
 <?php
 
 require_once('./models/db_connection.php');
-require_once('./controllers/ReservationsController.php');
+require_once('./controllers/FlightsController.php');
+require_once('./controllers/DestinationController.php');
 require_once('./controllers/AirlinesController.php');
-require_once ('./controllers/DestinationController.php');
+require_once (__DIR__.'/includes/header.php');
 
-function pre_print($var) {
-    echo '<pre>';
-    echo print_r($var, true);
-    echo '</pre>';
-}
+?>
+
+<!--    <nav class="navbar navbar-inverse">-->
+<!--        <div class="container-fluid">-->
+<!--            <div class="navbar-header">-->
+<!--                <a class="navbar-brand" href="#">Flight Management</a>-->
+<!--            </div>-->
+<!--            <ul class="nav navbar-nav">-->
+<!--                <li>-->
+<!--                    <a href="--><?php //echo $_SERVER['SCRIPT_NAME'].'/airlines/' ?><!--">-->
+<!--                        Airlines</a>-->
+<!--                </li>-->
+<!--                <li><a href="--><?php //echo $_SERVER['SCRIPT_NAME'].'/destinations/' ?><!--">-->
+<!--                        Destinations</a>-->
+<!--                </li>-->
+<!---->
+<!--                <li class="dropdown active">-->
+<!--                    <a class="dropdown-toggle" data-toggle="dropdown" href="--><?php //echo $_SERVER['SCRIPT_NAME'].'/flights/' ?><!--">-->
+<!--                        Flights-->
+<!--                        <span class="caret"></span></a>-->
+<!--                    <ul class="dropdown-menu">-->
+<!--                        <li><a href="--><?php //echo $_SERVER['SCRIPT_NAME'].'/flights/add-flight/' ?><!--">Add Flight</a></li>-->
+<!--                        <li><a href="--><?php //echo $_SERVER['SCRIPT_NAME'].'/flights/search-form/' ?><!--">Search Flight</a></li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </nav>-->
+
+<?php
 
 /**
  *
- * the single point of entry for all requests
+ * The single point of entry for all requests
  */
-// GET Requests
 if (isset($_SERVER['PATH_INFO']))
 {
-    // list-all-reservations.php/getFlights/1
     $pathInfo = explode('/',$_SERVER['PATH_INFO']);
-
 
     switch ($pathInfo[1])
     {
@@ -35,19 +58,17 @@ if (isset($_SERVER['PATH_INFO']))
             $controller->call();
             break;
 
-        case 'reservations': // $pathInfo[1] = reservations
-            $controller = new ReservationsController();
+        case 'flights': // $pathInfo[1] = flights
+            $controller = new FlightsController();
             $controller->call();
             break;
 
-
         default:
-            require_once ('./views/home.php');
-
+            require_once ('error-page.php');
     }
 
 }
 
+require_once (__DIR__.'/includes/footer.php');
 
-
-
+?>

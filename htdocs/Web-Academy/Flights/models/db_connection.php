@@ -1,21 +1,42 @@
 <?php
 
-
+/**
+ * Singleton Pattern
+ * getConnection() return an instance of PDO connection
+ *
+ */
 class Db
 {
     private static $instance = NULL;
 
     private function __construct() {}
 
-    public static function getInstance() {
-        if (!isset(self::$instance)) {
-            $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
+    /**
+     * Call this method to get instance
+     * @return null|PDO
+     */
+    public static function getInstance()
+    {
+        if (!isset(self::$instance))
+        {
             self::$instance = self::getConnection();
         }
 
         return self::$instance;
     }
 
+    /**
+     * Create a new database connection using the dsn
+     * and credentials provided (username, password)
+     *
+     * @param string $dsn The DSN to database
+     * @param string $username Database username
+     * @param string $password Database password
+     *
+     * @return PDO connection to the database
+     * @throws PDOException
+     * @throws Exception
+     */
     public static function getConnection()
     {
         // Get the path to config.ini

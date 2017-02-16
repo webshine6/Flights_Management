@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__.'/../models/db_connection.php');
+require_once (__DIR__.'/../models/db_connection.php');
 require_once (__DIR__.'/../models/Airline.php');
 require_once (__DIR__.'/../includes/validation.php');
 require_once (__DIR__.'/../ViewHelper.php');
@@ -20,7 +20,6 @@ class AirlinesController
 
     public function call()
     {
-
         if (isset($_SERVER['PATH_INFO']))
         {
             $pathInfo = explode('/',$_SERVER['PATH_INFO']);
@@ -78,7 +77,7 @@ class AirlinesController
             $this->viewHelper->display('airlines','adding-airline');
         }else {
             Airline::create_airline($result);
-            $this->viewHelper->assign('success', 'Destination created successful');
+            $this->viewHelper->assign('success', 'Airline created successful');
             $this->list_all_airlines();
 
         }
@@ -107,27 +106,29 @@ class AirlinesController
                 $errors[] = $rules[$key];
             }
 
-            // checks if all of the characters in the provided string are alphabetic.
-            if (ctype_alpha(str_replace(array("\n", "\t", ' '), '', $value)) === FALSE)
+            if (!empty($value))
             {
-                $errors[] = '* Name must only contains letters and spaces.';
-            }
+                // checks if all of the characters in the provided string are alphabetic.
+                if (ctype_alpha(str_replace(array("\n", "\t", ' '), '', $value)) === FALSE)
+                {
+                    $errors[] = '* Name must only contains letters and spaces.';
+                }
 
-            if (mb_strlen($value)< 3)
-            {
-                $errors[] = '* Name is too short.';
+                if (mb_strlen($value)< 3)
+                {
+                    $errors[] = '* Name is too short.';
+                }
             }
 
         }
 
-        // check airline for exists
+        // Check for existing name of airline
         $db = Db::getInstance();
         $req = $db->prepare('SELECT name FROM airlines WHERE name = :name');
         $req->bindParam(':name', $data['airline']);
         $req->execute();
 
         $row_count = $req->rowCount();
-
         if ($row_count > 0)
         {
             $errors[] = '* Airline already exists';

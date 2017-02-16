@@ -5,7 +5,7 @@ $path = $_SERVER['SCRIPT_NAME'];
 
 ?>
 
-    <h1>List All Reservations</h1>
+    <h1>List All Flights</h1>
 
     <table class="table table-hover">
         <thead>
@@ -14,6 +14,7 @@ $path = $_SERVER['SCRIPT_NAME'];
             <th>Destination</th>
             <th>Flight Date/Time</th>
             <th>Arrival Date/Time</th>
+            <th>Price</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -21,19 +22,20 @@ $path = $_SERVER['SCRIPT_NAME'];
         <?php
 
 
-        if (isset($reservations))
+        if (isset($flights))
         {
-            foreach ($reservations as $reservation)
+            foreach ($flights as $flight)
             {
                 echo "
             <tr>
 
-                <td>$reservation->airline</td>
-                <td>$reservation->destination </td>
-                <td>$reservation->flight_dt </td>
-                <td>$reservation->arrival_dt </td>
+                <td>$flight->airline</td>
+                <td>$flight->destination </td>
+                <td>$flight->flight_dt </td>
+                <td>$flight->arrival_dt </td>
+                <td>$flight->price </td>
                 <td>
-                   <a href=\"$path/reservations/delete/$reservation->id_reservation\" class=\"btn btn-primary\">
+                   <a href=\"$path/flights/delete/$flight->id_reservation\" class=\"btn btn-primary\">
                    Delete</a>
                 </td>
 
@@ -42,7 +44,6 @@ $path = $_SERVER['SCRIPT_NAME'];
             }
         }
 
-
         if(isset($errors))
         {
             foreach ($errors as $error)
@@ -50,7 +51,6 @@ $path = $_SERVER['SCRIPT_NAME'];
                 echo "<p  class='alert alert-warning'> $error </p>";
             }
         }
-
 
         ?>
 
@@ -67,9 +67,9 @@ if(isset($success))
 
 ?>
 
-    <a href="<?php echo $_SERVER['SCRIPT_NAME'].'/reservations/add-reservation' ?>"
+    <a href="<?php echo $_SERVER['SCRIPT_NAME'].'/flights/add-flight' ?>"
        class="btn btn-primary">
-        Add Reservation
+        Add Flight
     </a>
 
 <?php

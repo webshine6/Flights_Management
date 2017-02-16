@@ -7,9 +7,8 @@ class ViewHelper
     public function assign($key,$value){
         $this->data[$key]=$value;
     }
-    public function display($directory, $htmlPage){
+    public function display($directory, $view){
         extract($this->data);
-        include(__DIR__.'/./views/'.$directory.'/'.$htmlPage.'.php');
-
+        include(__DIR__.'/./views/'.$directory.'/'.$view.'.php');
     }
 }

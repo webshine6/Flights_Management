@@ -16,16 +16,15 @@
                <tbody>
                <?php
 
-
                if (isset($airlines))
                {
                    foreach ($airlines as $airline)
                    {
                        echo "
-            <tr> 
-                <td>$airline->id_airline </td>
-                <td>$airline->name </td>
-            </tr>";
+                        <tr> 
+                            <td>$airline->id_airline </td>
+                            <td>$airline->name </td>
+                        </tr>";
                    }
                }
 
@@ -33,18 +32,18 @@
                </tbody>
            </table>
            <a href="./add-airline" class="btn btn-primary">Add Airline</a>
+           <?php
+
+           if(isset($success))
+           {
+               echo "<p  class='alert alert-success'> $success </p>";
+           }
+
+
+           ?>
        </div>
    </div>
 
-    <?php
-
-    if(isset($success))
-    {
-        echo "<p  class='alert alert-success'> $success </p>";
-    }
-
-
-    ?>
 
 <?php
     require_once (__DIR__.'/../../includes/footer.php')
